@@ -1,5 +1,5 @@
 body {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -8,7 +8,7 @@ body {
   position: fixed;
 	top: 0;
 	left: 0;
-	z-index: -1;
+	z-index: -2;
   margin: 0 auto;
   width: 100vw;
   height: 100vh;
@@ -41,6 +41,7 @@ body {
   width: 100%;
   color: black;
   font-weight: 800;
+  z-index: 100;
 }
 
 body.lampadina1accesa #lampadina1,
@@ -52,6 +53,42 @@ body.lampadina2accesa #lampadina2
   box-shadow: 0 0 100px yellow;
 }
 
-.hidden{
-  display: none;
+
+#images.mostraAll .imgAll
+{
+  display: block;
+  z-index: -1;
+}
+
+#images.mostraHome .imgHome
+{
+  display: block;
+  z-index: -1;
+}
+
+#images.mostraFarm .imgFarm
+{
+  display: block;
+  z-index: -1;
+}
+
+.hidden
+{
+	display: none;
+}
+
+.title
+{
+	font-weight: 800;;
+}
+
+.title
+{
+	font-weight: 800;;
+}
+
+.title,
+.subtitle
+{
+	font-variant: small-caps;
 }
