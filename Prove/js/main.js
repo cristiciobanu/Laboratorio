@@ -28,6 +28,8 @@ $interruttoreGenerale.on('click', function()
 {
 	_manageClass(STATO_LAMPADINA_1);
   _manageClass(STATO_LAMPADINA_2);
-	$interruttore1.prop('checked', !$interruttore1.prop('checked'));
-	$interruttore2.prop('checked', !$interruttore2.prop('checked'));
+  _invertCheck($interruttore1);
+  _invertCheck($interruttore2);
+	// $interruttore1.prop('checked', !$interruttore1.prop('checked'));
+	// $interruttore2.prop('checked', !$interruttore2.prop('checked'));
 });
