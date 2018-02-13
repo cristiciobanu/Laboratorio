@@ -37,7 +37,7 @@ let GestioneBirre = (function () {
 	}
 
 	const _updateLista = function() {
-		_visualizzaBirre().then(
+		_visualizzaBirre(URL + "?per_page=4&page=" + actualPage).then(
 			function(response) {
 				response.forEach(function(element, index){
 					let $birra_base = $(TEMPLATE_BASE_BIRRA);
@@ -59,7 +59,7 @@ let GestioneBirre = (function () {
 	};
 
 	const _showBirra = function($element) {
-		_visualizzaBirra(URL + "/" + $element.find('img').data('id')).then(
+		_visualizzaBirre(URL + "/" + $element.find('img').data('id')).then(
 			function(response) {
         $element.append("<p>" + response[0].description + "</p>");
 			},
@@ -75,35 +75,12 @@ let GestioneBirre = (function () {
 		element.attr('src', dataSrc);
 	}
 
-	const _visualizzaBirra = function(url) {
-		return new Promise(function(resolve, reject) {
-			var req = new XMLHttpRequest();
-
-			req.open('GET', url);
-
-			req.onload = function() {
-				if (req.status == 200) {
-					resolve(req.response);
-				} else {
-					reject(Error(req.statusText));
-				}
-			};
-
-			req.onerror = function() {
-				reject(Error("Network Error"));
-			};
-
-			req.responseType = 'json';
-			req.send();
-		});
-	};
-
-	const _visualizzaBirre = function() {
+	const _visualizzaBirre = function(url) {
 		// Return a new promise.
 		return new Promise(function(resolve, reject) {
 			// Do the usual XHR stuff
 			var req = new XMLHttpRequest();
-			req.open('GET', URL + "?per_page=4&page=" + actualPage);
+			req.open('GET', url);
 
 			req.onload = function() {
 				// This is called even on 404 etc
