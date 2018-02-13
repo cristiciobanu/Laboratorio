@@ -7,11 +7,7 @@ let GestioneBirre = (function () {
 
 	const URL = 'https://api.punkapi.com/v2/beers';
 
-	let TEMPLATE_BASE_BIRRA =
-	'<article class="birra">'
-	+'<img src="" />'
-	+'<h2></h2>'
-	+'</article>';
+	let TEMPLATE_BASE_BIRRA = '<article class="birra"><img src="" /><h2></h2></article>';
 
 	/* CACHING VARIABLES */
 	function _setup() {
@@ -40,7 +36,7 @@ let GestioneBirre = (function () {
 
         switchRisultati = 2;
   			_showBirreByElement("beer_name", $this.val());
-        
+
       } else if ($('#scelta-2').prop('checked')) {
 
         switchRisultati = 3;
