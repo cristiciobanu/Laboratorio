@@ -5,20 +5,13 @@ let GestioneBirre = (function () {
 
 	const INIT_DOC_H = $(document).height();
 
-	const API_ROOT = 'https://api.punkapi.com/v2',
-	API_BEERS = '/beers?per_page=5&page=';
+	const URL = 'https://api.punkapi.com/v2/beers';
 
 	let TEMPLATE_BASE_BIRRA =
 	'<article class="birra">'
 	+'<img src="" />'
 	+'<h2></h2>'
 	+'</article>';
-
-	let TEMPLATE_DETTAGLI_BIRRA =
-	'<section>'
-	+'<h4></h4>'
-	+'<h4></h4>'
-	+'</section>';
 
 	/* CACHING VARIABLES */
 	function _setup() {
@@ -32,19 +25,26 @@ let GestioneBirre = (function () {
 	/* PRIVATE BUSINESS FUNCTIONS */
 	const _checkEnter = function(e, $this) {
 		if ($this.val() == "" && e.keyCode == 13) {
-			_updateLista();
-		}
 
+			// Reset variabili
+			$wrapper.empty();
+			actualPage = 1;
+
+			// Nuovi valori
+			_updateLista();
+			setInterval(_controlloImmagini, 1000);
+		}
 	}
 
 	const _updateLista = function() {
-		_visualizzaBirre(API_ROOT + API_BEERS + actualPage).then(
+		_visualizzaBirre().then(
 			function(response) {
 				response.forEach(function(element, index){
 					let $birra_base = $(TEMPLATE_BASE_BIRRA);
 
 					$birra_base.find('img').attr('data-src', element.image_url);
-					$birra_base.find('img').attr('src', 'images/white.png');
+					$birra_base.find('img').attr('data-id', element.id);
+					$birra_base.find('img').attr('src', 'images/loader.svg');
 					$birra_base.find('h2').append(element.name);
 
 					$wrapper.append($birra_base);
@@ -58,25 +58,52 @@ let GestioneBirre = (function () {
 		);
 	};
 
-	const _swap = function(element) {
-
-		let src = element.attr('src');
-		let dataSrc = element.attr('data-src');
-		element.attr('src', dataSrc);
-		element.attr('dataSrc', src);
-	}
-
-	const _visualizzaBirra = function() {
-		// aggiunge dettagli alla singola birra
+	const _showBirra = function($element) {
+		_visualizzaBirra(URL + "/" + $element.find('img').data('id')).then(
+			function(response) {
+        $element.append("<p>" + response[0].description + "</p>");
+			},
+			function(error) {
+				console.error("Failed!", error);
+			}
+		);
 	};
 
-	const _visualizzaBirre = function(url) {
+	const _swap = function(element) {
 
+		let dataSrc = element.attr('data-src');
+		element.attr('src', dataSrc);
+	}
+
+	const _visualizzaBirra = function(url) {
+		return new Promise(function(resolve, reject) {
+			var req = new XMLHttpRequest();
+
+			req.open('GET', url);
+
+			req.onload = function() {
+				if (req.status == 200) {
+					resolve(req.response);
+				} else {
+					reject(Error(req.statusText));
+				}
+			};
+
+			req.onerror = function() {
+				reject(Error("Network Error"));
+			};
+
+			req.responseType = 'json';
+			req.send();
+		});
+	};
+
+	const _visualizzaBirre = function() {
 		// Return a new promise.
 		return new Promise(function(resolve, reject) {
 			// Do the usual XHR stuff
 			var req = new XMLHttpRequest();
-			req.open('GET', url);
+			req.open('GET', URL + "?per_page=4&page=" + actualPage);
 
 			req.onload = function() {
 				// This is called even on 404 etc
@@ -101,8 +128,16 @@ let GestioneBirre = (function () {
 			req.responseType = 'json';
 			req.send();
 		});
-
 	};
+
+	const _controlloImmagini = function() {
+		$('img').each(function() {
+			let $this = $(this);
+			if ($this.isOnScreen()) {
+				_swap($this);
+			}
+		});
+	}
 	/* END PRIVATE BUSINESS FUNCTIONS */
 
 	/* DECLARING EVENT HANDLER */
@@ -115,18 +150,12 @@ let GestioneBirre = (function () {
 		$(window).scroll(function() {
 			if($(window).scrollTop() + INIT_DOC_H >= $(document).height()) _updateLista();
 
-			$('img').each(function() {
-				let $this = $(this);
-
-				if ($this.isOnScreen()) {
-					_swap($this);
-				}
-
-			});
-
+			_controlloImmagini();
 		})
 
-		$wrapper.on('hover', $birra, _visualizzaBirra); // dettagli birra
+		$wrapper.on('click', ".birra", function() {
+			_showBirra($(this));
+		});
 	};
 
 	function _init() {
