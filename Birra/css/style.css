@@ -20,7 +20,9 @@ main {
   main input[type=text] {
     width: 100%;
     margin-bottom: 10px;
-    font-size: 20px; }
+    font-size: 20px;
+    border: 0;
+    border-bottom: 1px solid #777; }
   main .birra {
     background: #CCC;
     max-width: 300px;
