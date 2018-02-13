@@ -47,6 +47,20 @@ let GestioneBirre = (function () {
     }
 	};
 
+  const switchResults = function () {
+		switch (switchRisultati) {
+			case 1:
+			_showBirreByElement();
+			break;
+			case 2:
+			_showBirreByElement("beer_name=" + $input.val() + "&");
+			break;
+			case 3:
+			_showBirreByElement("food=" + $input.val() + "&");
+			break;
+		}
+	}
+
 	const _printBirre = function(response) {
 		response.forEach(function(element, index){
 			let $birra_base = $(TEMPLATE_BASE_BIRRA);
@@ -84,11 +98,6 @@ let GestioneBirre = (function () {
 		);
 	};
 
-	const _swap = function(element) {
-		let dataSrc = element.attr('data-src');
-		element.attr('src', dataSrc);
-	}
-
 	const _visualizzaBirre = function(url) {
 		// Return a new promise.
 		return new Promise(function(resolve, reject) {
@@ -121,6 +130,11 @@ let GestioneBirre = (function () {
 		});
 	};
 
+  const _swap = function(element) {
+    let dataSrc = element.attr('data-src');
+    element.attr('src', dataSrc);
+  }
+
 	const _controlloImmagini = function() {
 		$('img').each(function() {
 			let $this = $(this);
@@ -128,20 +142,6 @@ let GestioneBirre = (function () {
 				_swap($this);
 			}
 		});
-	}
-
-	const switchResults = function () {
-		switch (switchRisultati) {
-			case 1:
-			_showBirreByElement();
-			break;
-			case 2:
-			_showBirreByElement("beer_name", $input.val());
-			break;
-			case 3:
-			_showBirreByElement("food", $input.val());
-			break;
-		}
 	}
 	/* END PRIVATE BUSINESS FUNCTIONS */
 
