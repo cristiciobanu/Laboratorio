@@ -1,7 +1,7 @@
 @import 'variables';
 
 /*****************************
-      BODY
+BODY
 *****************************/
 
 * {
@@ -10,8 +10,8 @@
 }
 
 body {
-  width: 100%;
-  margin: 0 auto;
+	width: 100%;
+	margin: 0 auto;
 	padding: 0;
 }
 
@@ -22,27 +22,32 @@ main {
 	align-self: center;
 	flex-direction: column;
 	padding: 10px;
-}
 
-input[type=text] {
-	width: 100%;
-	margin-bottom: 10px;
-  font-size: 20px;
-}
+	input[type=text] {
+		width: 100%;
+		margin-bottom: 10px;
+		font-size: 20px;
+	}
 
-img {
-	max-width: 100%;
-	height: 400px;
-}
+	.birra {
+		background: #CCC;
+		max-width: 300px;
+		margin-bottom: 10px;
+		padding: 10px;
 
-h2 {
-	font-weight: 600;
-	font-variant: small-caps;
-	font-size: 20px;
-}
+		img {
+			max-width: 100%;
+			height: 400px;
+		}
 
-.birra {
-	background: #CCC;
-	margin-bottom: 10px;
-	padding: 10px;
+		h2 {
+			font-weight: 600;
+			font-variant: small-caps;
+			font-size: 20px;
+		}
+
+		p {
+			text-align: justify;
+		}
+	}
 }
