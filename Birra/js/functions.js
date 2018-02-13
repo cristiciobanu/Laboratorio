@@ -30,17 +30,17 @@ let GestioneBirre = (function () {
       if ($this.val() == "") {
 
         switchRisultati = 1;
-  			_updateLista();
+  			_showBirreByElement();
 
       } else if ($('#scelta-1').prop('checked')) {
 
         switchRisultati = 2;
-  			_showBirreByElement("beer_name", $this.val());
+  			_showBirreByElement("beer_name=" + $this.val() + "&");
 
       } else if ($('#scelta-2').prop('checked')) {
 
         switchRisultati = 3;
-  			_showBirreByElement("food", $this.val());
+  			_showBirreByElement("food=" + $this.val() + "&");
       }
 
 			setTimeout(_controlloImmagini, 1000);
@@ -62,19 +62,8 @@ let GestioneBirre = (function () {
 		++actualPage;
 	}
 
-	const _updateLista = function() {
-		_visualizzaBirre(URL + "?per_page=4&page=" + actualPage).then(
-			function(response) {
-				_printBirre(response);
-			},
-			function(error) {
-				console.error("Failed!", error);
-			}
-		);
-	};
-
-	const _showBirreByElement = function(title, element) {
-		_visualizzaBirre(URL + "?"+ title + "=" + element + "&per_page=4&page=" + actualPage).then(
+	const _showBirreByElement = function(element="") {
+		_visualizzaBirre(URL + "?"+ element + "per_page=4&page=" + actualPage).then(
 			function(response) {
 				_printBirre(response);
 			},
@@ -144,7 +133,7 @@ let GestioneBirre = (function () {
 	const switchResults = function () {
 		switch (switchRisultati) {
 			case 1:
-			_updateLista();
+			_showBirreByElement();
 			break;
 			case 2:
 			_showBirreByElement("beer_name", $input.val());
