@@ -1,13 +1,12 @@
 {
 	"name": "Birra",
 	"version": "0.0.1",
-	"description": "Birra",
-	"license": "MIT",
 	"devDependencies": {
 		"grunt": "latest",
 		"grunt-contrib-sass": "latest",
 		"grunt-contrib-watch": "latest",
-		"babel-cli": "latest",
+		"babel-core": "^6.0.0 || ^7.0.0-alpha",
+		"grunt-babel": "latest",
 		"babel-preset-env": "latest"
 	}
 }
