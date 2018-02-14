@@ -5,7 +5,7 @@
 		"grunt": "latest",
 		"grunt-contrib-sass": "latest",
 		"grunt-contrib-watch": "latest",
-		"babel-cli-D": "latest",
-		"babel-preset-env-D": "latest"
+		"babel-cli": "latest",
+		"babel-preset-env": "latest"
 	}
 }
