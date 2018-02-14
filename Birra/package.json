@@ -1,6 +1,8 @@
 {
 	"name": "Birra",
 	"version": "0.0.1",
+	"description": "Birra",
+	"license": "MIT",
 	"devDependencies": {
 		"grunt": "latest",
 		"grunt-contrib-sass": "latest",
